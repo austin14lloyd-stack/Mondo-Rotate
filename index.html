@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mondo Financial - Auto Rotate</title>
+  <style>
+    body { margin: 0; background: #0b0b0b; display: grid; place-items: center; height: 100vh; }
+    iframe { width: 600px; height: 373.5px; border: 0; }
+    .label {
+      font-family: Arial, sans-serif;
+      color: #d9d9d9;
+      margin: 10px 0 0;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <iframe
+      id="pbiFrame"
+      title="Mondo Financial - Dev"
+      src=""
+      allowfullscreen="true">
+    </iframe>
+    <div class="label" id="pageLabel"></div>
+  </div>
+
+<script>
+  // Base "Publish to web" URL (your r=... token stays the same)
+  const baseUrl =
+    "https://app.powerbi.com/view?r=eyJrIjoiYzNhOTA3MTItNGE5NC00MTJlLWEwZjctZjUwMTIxMTNkMDBhIiwidCI6IjNiYWI4YzcwLWQyOTktNDdjMy1iZWQ5LWNjNWMzMTBlYWUxNSIsImMiOjh9";
+
+  // Rotation speed (5 seconds). Change to 10000 for 10 seconds, etc.
+  const rotateEveryMs = 15000;
+
+  // Your pages (name + pageName)
+  const pages = [
+    { name: "Home Page", pageName: "6c48d745079e030b97b5" },
+    { name: "Collection Rate", pageName: "e2014a0ce764558a2bfa" },
+    { name: "Collection Successful Rate", pageName: "2e9a15ff3c1ff9d62371" },
+    { name: "Collections Rate Pro Rata", pageName: "8e29d06e7c63cd3044e5" },
+    { name: "Collections Summary", pageName: "7c86873eea7a2ed06430" },
+    { name: "Targets", pageName: "e79b1e98808955bb81dc" },
+    { name: "Book Summary", pageName: "b4f7375ed3420db0ca01" },
+    { name: "Book Size + Exceptions", pageName: "b27cedd3b85dc71b7074" },
+    { name: "Book Size", pageName: "c43539ebdcafd9ffcb3a" },
+    { name: "Book Size Customer", pageName: "bc34fe140cd77e261b73" },
+    { name: "Active Book", pageName: "d2acf6ed1fa1ae1a5d12" },
+    { name: "Product Active Book", pageName: "5aa3c5e4dc310a08092a" },
+    { name: "Campaign Commercials", pageName: "1bffdab38100092b2a08" },
+    { name: "Dotsure Sales Pro Rata", pageName: "855ea14c605030204603" },
+    { name: "Monthly Revenue and Sales", pageName: "922e70be0c018633443d" },
+    { name: "Monthly Revenue and Sales by Client", pageName: "778c4530444893a5e063" },
+    { name: "Daily Revenue and Sales", pageName: "2c2afce290bd79023023" },
+    { name: "Daily Revenue and Sales by Client", pageName: "3e71370f9e917b0609d0" },
+    { name: "Payroll SPA per Month", pageName: "fde18d46b0a0b6e8e855" },
+    { name: "Payroll SPA by Client", pageName: "2f0b667b9339be3cc783" },
+    { name: "Payroll SPA by Week", pageName: "81fb0441c596280ad6e0" },
+    { name: "Payroll SPA by Day", pageName: "8e0b9f072048b8b2b165" },
+    { name: "Payroll SPA by Day by Client", pageName: "3ea1ffe0d9b7eb1d20d0" },
+    { name: "Monthly Agent Tenure", pageName: "e3e04eed59615ace0ac4" },
+    { name: "Monthly Sent to Bank", pageName: "d92f1e5ed8906052c19c" },
+    { name: "Agent Performance", pageName: "58f25860a4da80b6f736" },
+    { name: "Lead Type", pageName: "f8aa74b9590560873830" },
+    { name: "Sales Inflow", pageName: "4e33b81b8264977b4fc3" },
+    { name: "Monthly Dotsure Cancellations", pageName: "7783b47cb4a4c33d9c0e" },
+    { name: "Total Premiums", pageName: "948f634bbf9b8f05457b" }
+  ];
+
+  const frame = document.getElementById("pbiFrame");
+  const label = document.getElementById("pageLabel");
+  let i = 0;
+
+  function setPage(index) {
+    const p = pages[index];
+    const url = `${baseUrl}&pageName=${encodeURIComponent(p.pageName)}`;
+    frame.src = url;
+    label.textContent = `Showing: ${p.name} (${index + 1}/${pages.length})`;
+  }
+
+  // Start
+  setPage(i);
+
+  // Rotate
+  setInterval(() => {
+    i = (i + 1) % pages.length;
+    setPage(i);
+  }, rotateEveryMs);
+</script>
+
+</body>
+</html>
